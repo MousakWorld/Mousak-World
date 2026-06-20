@@ -1396,33 +1396,6 @@
         }
       }, { passive: true });
 
-      /* ── Form submission ── */
-      var form    = document.getElementById('inquiryForm');
-      var success = document.getElementById('formSuccess');
-
-      if (form) {
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
-          var name  = document.getElementById('iName').value.trim();
-          var email = document.getElementById('iEmail').value.trim();
-          if (!name || !email) {
-            var first = !name ? document.getElementById('iName') : document.getElementById('iEmail');
-            first.focus();
-            return;
-          }
-          form.style.transition = 'opacity 0.45s ease';
-          form.style.opacity    = '0';
-          setTimeout(function () {
-            form.style.display = 'none';
-            success.classList.add('shown');
-            requestAnimationFrame(function () {
-              requestAnimationFrame(function () {
-                success.classList.add('visible');
-              });
-            });
-          }, 450);
-        });
-      }
 
     })();
   </script>
