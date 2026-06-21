@@ -530,16 +530,24 @@
       aspect-ratio: 4/5;
       background: var(--stone);
       overflow: hidden;
+      /* iOS Safari fallback: aspect-ratio alone may not size the box for abs children */
+      min-height: 300px;
+    }
+    /* Padding-top trick ensures height is established for abs children on all Safari */
+    .founder-portrait::before {
+      content: '';
+      display: block;
+      padding-top: 125%; /* 5/4 = 125% gives 4:5 portrait ratio */
     }
     .founder-portrait svg {
       position: absolute;
-      inset: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       width: 100%;
       height: 100%;
     }
     .portrait-inset {
       position: absolute;
-      inset: 1.5rem;
+      top: 1.5rem; left: 1.5rem; right: 1.5rem; bottom: 1.5rem;
       border: 1px solid rgba(184,154,94,0.12);
       pointer-events: none;
     }
@@ -947,7 +955,10 @@
       object-position: center top;
       border-radius: 0;
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
     .inquiry-image {
       width: 100%;
@@ -1049,10 +1060,6 @@
 
   <!-- ═══════════════════════════════ CURRENT COMMISSION -->
   <section id="commission">
-<img
-src="images/image3.jpg"
-alt="Mirage City"
-class="project-image">
     <div class="commission-head">
       <div class="commission-head-inner">
         <div class="section-label sr">Current Commission</div>
@@ -1062,6 +1069,10 @@ class="project-image">
         </div>
       </div>
     </div>
+<img
+src="images/image3.jpg"
+alt="Mirage City"
+class="project-image">
 
     <!-- Full-bleed architectural illustration -->
     <div class="commission-img" role="img" aria-label="Architectural illustration of Mirage City residence, New Cairo">
