@@ -21,9 +21,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="MOUSAK — Architecture for Dynasties. Ultra-premium architectural practice based in Cairo.">
   <title>MOUSAK — Architecture for Dynasties</title>
+
+  <!-- LCP FIX 1: preload the hero background image so the browser's preload scanner
+       can discover and start fetching it immediately, instead of waiting for CSSOM
+       construction + style computation to reveal it via the CSS background-image rule. -->
+  <link rel="preload" as="image" href="images/image1.jpg" fetchpriority="high">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- LCP FIX 2: load the Google Fonts stylesheet asynchronously (preload + swap to
+       stylesheet on load) instead of as a render-blocking <link rel="stylesheet">.
+       This removes a blocking network round-trip from the critical rendering path
+       before the hero section (and its background image) can paint.
+       Fonts are unaffected: same URL, same families/weights, same font-display: swap
+       behavior — this only changes when the browser is allowed to start rendering
+       while the fonts finish loading. A <noscript> fallback preserves the original
+       blocking behavior for the rare case JS is disabled. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  </noscript>
 
   <style>
 
