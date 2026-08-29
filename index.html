@@ -332,6 +332,31 @@
     .max-w {
       max-width: 1240px;
       margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ────────────────────────────────────────────
+       ROOM BACKGROUND — full-bleed image behind text,
+       same treatment as the hero background.
+    ──────────────────────────────────────────── */
+    .room-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .room-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(11,11,11,0.74), rgba(11,11,11,0.88));
+    }
+    #manifesto, #inquiry, #courtyard, #archive {
+      position: relative;
+      overflow: hidden;
     }
 
     hr.thin {
@@ -586,6 +611,19 @@
       border: 1px solid rgba(184,154,94,0.12);
       pointer-events: none;
     }
+    .founder-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
 
     .founder-content { }
 
@@ -644,6 +682,8 @@
     .inquiry-inner {
       max-width: 920px;
       margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
 
     .inquiry-title {
@@ -963,17 +1003,6 @@
       .sr { opacity: 1; transform: none; transition: none; }
     }
     /* ── Added real-photo image helpers ── */
-    .section-image {
-      width: 100%;
-      overflow: hidden;
-      margin-bottom: 4rem;
-    }
-    .section-image img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-    }
     .project-image {
       width: 100%;
       display: block;
@@ -982,31 +1011,9 @@
       object-position: center;
       margin-bottom: 0;
     }
-    .founder-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      object-position: center top;
-      border-radius: 0;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-    .inquiry-image {
-      width: 100%;
-      overflow: hidden;
-      margin-bottom: 3rem;
-      max-height: 420px;
-    }
-    .inquiry-image img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-    }
+
+    /* .section-image, .founder-image and .inquiry-image are retired —
+       those images render as a full-bleed .room-bg behind the content. */
 
     /* ────────────────────────────────────────────
        SKIP LINK
@@ -1352,7 +1359,7 @@
       background: var(--seam);
     }
     .archive-card {
-      background: var(--obsidian);
+      background: rgba(11,11,11,0.82);
       padding: 3rem 2.25rem;
       display: flex;
       flex-direction: column;
@@ -1447,6 +1454,9 @@
   </nav>
 
   <!-- ═══════════════════════════════ SOUND TOGGLE -->
+  <audio id="ambientAudio" loop preload="none" aria-hidden="true">
+    <source src="audio/mousak-ambient.mp3" type="audio/mpeg">
+  </audio>
   <button id="sound-toggle" aria-pressed="false">
     <span class="sound-bars"><span></span><span></span><span></span></span>
     <span id="soundLabel">Sound Off</span>
@@ -1510,9 +1520,7 @@
 
   <!-- ═══════════════════════════════ MANIFESTO -->
   <section id="manifesto">
-    <div class="section-image">
-   <img src="images/image2.jpg" alt="Philosophy">
-</div>
+    <div class="room-bg" style="background-image:url('images/image2.jpg')" role="img" aria-label="Philosophy"></div>
     <div class="max-w">
       <div class="manifesto-grid">
 
@@ -1630,6 +1638,7 @@ class="project-image">
 
   <!-- ═══════════════════════════════ THE COURTYARD (AEON) -->
   <section id="courtyard">
+    <div class="room-bg" style="background-image:url('images/image6.jpg')" role="img" aria-label="AEON"></div>
     <div class="courtyard-inner">
       <div class="courtyard-sigil-wrap">
         <svg class="order-sigil sr" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1654,12 +1663,13 @@ class="project-image">
 
   <!-- ═══════════════════════════════ THE PRIVATE ARCHIVE (JOURNAL) -->
   <section id="archive">
-    <div class="archive-head">
+    <div class="room-bg" style="background-image:url('images/image7.jpg')" role="img" aria-label="Journal"></div>
+    <div class="archive-head" style="position:relative; z-index:2;">
       <div class="section-label sr">The Private Archive</div>
       <h2 class="archive-title sr sr-d1">Journal</h2>
       <p class="archive-sub sr sr-d2">A Record Of Thought, Kept For Those Who Return. New Entries Are Added As The Practice Permits.</p>
     </div>
-    <div class="archive-grid">
+    <div class="archive-grid" style="position:relative; z-index:2;">
       <div class="archive-card sr">
         <span class="archive-num">I</span>
         <h3>On Permanence as a Design Constraint</h3>
@@ -1682,14 +1692,10 @@ class="project-image">
 
   <!-- ═══════════════════════════════ INQUIRY -->
   <section id="inquiry">
+    <div class="room-bg" style="background-image:url('images/image5.jpg')" role="img" aria-label="Begin a Conversation"></div>
     <div class="inquiry-inner">
 
       <div class="section-label sr">Commission Inquiry</div>
-      <div class="inquiry-image">
-<img
-src="images/image5.jpg"
-alt="Begin a Conversation">
-</div>
       <h2 class="inquiry-title sr sr-d1">Begin<br>a Conversation</h2>
       <p class="inquiry-sub sr sr-d2">
         MOUSAK accepts a limited number of commissions annually.<br>
@@ -2019,50 +2025,59 @@ if (form) {
         thresholds.forEach(function (t) { t.classList.add('in'); });
       }
 
-      /* ── Sound: a very quiet synthesized room tone, started only on explicit user gesture ── */
+      /* ── Sound: fades in/out the ambient track at audio/mousak-ambient.mp3.
+             Only ever started by an explicit user gesture (this click),
+             never autoplayed. If the file isn't present yet, the toggle
+             resets itself quietly rather than breaking the page. ── */
       var soundBtn = document.getElementById('sound-toggle');
       var soundLabel = document.getElementById('soundLabel');
-      var audioCtx = null, soundNodes = null, soundOn = false;
+      var ambientAudio = document.getElementById('ambientAudio');
+      var soundOn = false, fadeTimer = null;
+      var AMBIENT_VOLUME = 0.35;
+
+      function fadeAudioTo(target, duration) {
+        if (!ambientAudio) return;
+        clearInterval(fadeTimer);
+        var steps = 30;
+        var stepTime = duration / steps;
+        var start = ambientAudio.volume;
+        var delta = (target - start) / steps;
+        var i = 0;
+        fadeTimer = setInterval(function () {
+          i++;
+          var v = start + delta * i;
+          ambientAudio.volume = Math.min(1, Math.max(0, v));
+          if (i >= steps) {
+            clearInterval(fadeTimer);
+            if (target === 0) ambientAudio.pause();
+          }
+        }, stepTime);
+      }
+
+      function resetSoundUI() {
+        soundOn = false;
+        if (soundBtn) soundBtn.setAttribute('aria-pressed', 'false');
+        if (soundLabel) soundLabel.textContent = 'Sound Off';
+      }
+
       function startSound() {
-        if (!audioCtx) {
-          var AC = window.AudioContext || window.webkitAudioContext;
-          if (!AC) return;
-          audioCtx = new AC();
+        if (!ambientAudio) return;
+        ambientAudio.volume = 0;
+        var playPromise = ambientAudio.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(resetSoundUI);
         }
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        if (soundNodes) return;
-        var master = audioCtx.createGain();
-        master.gain.value = 0;
-        master.connect(audioCtx.destination);
-        master.gain.linearRampToValueAtTime(0.028, audioCtx.currentTime + 1.5);
-
-        var osc1 = audioCtx.createOscillator();
-        osc1.type = 'sine'; osc1.frequency.value = 55;
-        var osc2 = audioCtx.createOscillator();
-        osc2.type = 'sine'; osc2.frequency.value = 82.4;
-        var lfo = audioCtx.createOscillator();
-        lfo.type = 'sine'; lfo.frequency.value = 0.06;
-        var lfoGain = audioCtx.createGain();
-        lfoGain.gain.value = 0.008;
-        lfo.connect(lfoGain);
-        lfoGain.connect(master.gain);
-
-        osc1.connect(master); osc2.connect(master);
-        osc1.start(); osc2.start(); lfo.start();
-        soundNodes = { master: master, osc1: osc1, osc2: osc2, lfo: lfo };
+        fadeAudioTo(AMBIENT_VOLUME, 1400);
       }
+
       function stopSound() {
-        if (!soundNodes || !audioCtx) return;
-        var now = audioCtx.currentTime;
-        soundNodes.master.gain.linearRampToValueAtTime(0, now + 0.8);
-        var nodes = soundNodes;
-        setTimeout(function () {
-          try {
-            nodes.osc1.stop(); nodes.osc2.stop(); nodes.lfo.stop();
-          } catch (e) {}
-        }, 900);
-        soundNodes = null;
+        fadeAudioTo(0, 900);
       }
+
+      if (ambientAudio) {
+        ambientAudio.addEventListener('error', resetSoundUI);
+      }
+
       if (soundBtn) {
         soundBtn.addEventListener('click', function () {
           soundOn = !soundOn;
